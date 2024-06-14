@@ -42,10 +42,10 @@ const placesList = document.querySelector('.places__list');
 
 function createCard(element, deleteCard) {
   const cardElement = cardsTemplate.cloneNode(true);
-  const cardDelete = cardsTemplate.querySelector('.card__delete-button');
   
-  const cardImage = cardElement.querySelector('.card__image')
-  const cardName = cardElement.querySelector('.card__title')
+  const cardDelete = cardElement.querySelector('.card__delete-button');
+  const cardImage = cardElement.querySelector('.card__image');
+  const cardName = cardElement.querySelector('.card__title');
   
   cardImage.src = element.link;
   cardName.textContent = element.name;
