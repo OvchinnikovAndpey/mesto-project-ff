@@ -17,7 +17,7 @@ initialCards.forEach(function(element) {
 // @todo: Функция удаления карточки
 
 function deleteCard(event) {
-  let card = event.target.closest('.card')
+  const card = event.target.closest('.card')
   card.remove()
 }
 
@@ -31,6 +31,7 @@ function createCard(element, deleteCard) {
   const cardName = cardElement.querySelector('.card__title');
   
   cardImage.src = element.link;
+  cardImage.alt = `Изображение ${element.name}`;
   cardName.textContent = element.name;
 
   cardDelete.addEventListener('click', deleteCard) 
