@@ -13,7 +13,7 @@ const placesList = document.querySelector('.places__list');
 // @todo: Вывести карточки на страницу
 
 initialCards.forEach(function(element) {
-  const cardElement = createCard(element, deleteCard) 
+  const cardElement = createCard(element, deleteCard, handleLike, openImage) 
   placesList.append(cardElement)
 })
 
@@ -26,33 +26,67 @@ function deleteCard(event) {
 
 // @todo: Функция создания карточки
 
-function createCard(element, deleteCard) {
+function createCard(element, deleteCard, likeClick, openImage) {
   const cardElement = cardsTemplate.cloneNode(true);
   
   const cardDelete = cardElement.querySelector('.card__delete-button');
   const cardImage = cardElement.querySelector('.card__image');
   const cardName = cardElement.querySelector('.card__title');
+  const cardLikeBtn = cardElement.querySelector('.card__like-button');
   
   cardImage.src = element.link;
   cardImage.alt = `Изображение ${element.name}`;
   cardName.textContent = element.name;
 
+  cardLikeBtn.addEventListener('click', likeClick);
+
   cardDelete.addEventListener('click', deleteCard) 
+
+  cardImage.addEventListener('click', openImage)
 
   return cardElement;
 
 }
 
 
+// Функция вызова открытия картинки карточки
+const openImagePopup = document.querySelector('.popup_type_image');
+const imagePopup = document.querySelector('.popup__image');
+const captionPopup = document.querySelector('.popup__caption');
+
+function openImage(evt) {
+  
+  imagePopup.src = evt.target.src
+  imagePopup.alt = evt.target.alt
+  captionPopup.textContent = evt.target.alt
+
+  openModal(openImagePopup)
+}
+
+// функция вызова лайка карточки
+
+function handleLike(evt) {
+  evt.target.classList.toggle('card__like-button_is-active');
+}
+
 // кнопка редактирования профиля
+
 const ProfileEdit = document.querySelector('.profile__edit-button');
+
 // модальное окно редактирования профиля
+
 const popupProfileEdit = document.querySelector('.popup_type_edit');
+
 // ПРЕзаполненное имя
+
 const profileName = document.querySelector('.profile__title');
+
 const popupNameInput = document.querySelector('.popup__input_type_name');
+
 // ПРЕзаполненное описание
+
 const profileDescription = document.querySelector('.profile__description');
+
 const popupAboutInput = document.querySelector('.popup__input_type_description');
 
 // Кнопка открытия модального окна добавления карточки
@@ -66,7 +100,6 @@ const modalWindow = document.querySelector('.popup')
 
 // Кнопка закрытия модалки
 const popupCloseBtn = document.querySelectorAll('.popup__close')
-
 
 // обработчик события редактирования профиля с ПРЕзаполненными данными ранее
 
@@ -82,11 +115,12 @@ ProfileEdit.addEventListener('click', (e) => {
 // форма редактирования карточки
 
 
-const formElement = document.querySelector('.popup__form')// Воспользуйтесь методом querySelector()
+const formElement = document.querySelector('.popup__form')
+
 // Находим поля формы в DOM
 const formEditProfile = document.forms['edit-profile'];
-const nameInput = document.querySelector('.popup__input_type_name')// Воспользуйтесь инструментом .querySelector()
-const jobInput = document.querySelector('.popup__input_type_description') // Воспользуйтесь инструментом .querySelector()
+const nameInput = document.querySelector('.popup__input_type_name')
+const jobInput = document.querySelector('.popup__input_type_description') 
 
 // Обработчик «отправки» формы, хотя пока
 // она никуда отправляться не будет
@@ -139,6 +173,7 @@ popupCloseBtn.forEach(item => {
   item.addEventListener('click', () => {
     closeModal(popupProfileEdit);
     closeModal(popupAddNewCard);
+    closeModal(openImagePopup)
   })
 })
 
@@ -157,4 +192,31 @@ const closeModal = (popup) => {
   document.removeEventListener('keydown', closeEsc)
   document.removeEventListener('click', closeOverlay)
 }
+
+
+// Функция добавления новой карточки
+
+// DOM элементы
+const formCreateNewImageCard = document.forms['new-place']
+const cardNameInput = document.querySelector('.popup__input_type_card-name')
+const cardLinkPlase = document.querySelector('.popup__input_type_url')
+
+function createNewCard(event) {
+  event.preventDefault();
+
+  const newCardElement = {
+    name: cardNameInput.value,
+    link: cardLinkPlase.value,
+  };
+
+  const newCard = createCard(newCardElement, deleteCard, handleLike, openImage) 
+
+  placesList.prepend(newCard);
+
+  closeModal(popupAddNewCard);
+  event.target.reset(); 
+}
+
+formCreateNewImageCard.addEventListener('submit', createNewCard);
+
 
