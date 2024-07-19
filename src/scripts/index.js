@@ -1,11 +1,11 @@
 import '../pages/index.css';
 import { initialCards } from './cards';
-import { createCard, deleteCard, handleLike, placesList } from '../components/card';
-import { openModal, closeModal, popupProfileEdit, popupAddNewCard, openImagePopup } from '../components/modal';
+import { createCard, deleteCard, handleLike } from '../components/card';
+import { openModal, closeModal } from '../components/modal';
 
 
-
-const ProfileEdit = document.querySelector('.profile__edit-button');// кнопка редактирования профиля
+const placesList = document.querySelector('.places__list');
+const profileEdit = document.querySelector('.profile__edit-button');// кнопка редактирования профиля
 const profileName = document.querySelector('.profile__title');// ПРЕзаполненное имя
 const popupNameInput = document.querySelector('.popup__input_type_name');
 const profileDescription = document.querySelector('.profile__description');// ПРЕзаполненное описание
@@ -20,10 +20,12 @@ const formCreateNewImageCard = document.forms['new-place']
 const cardNameInput = document.querySelector('.popup__input_type_card-name')
 const cardLinkPlase = document.querySelector('.popup__input_type_url')
 // переменные функции вызова открытия картинки карточки
-
 const imagePopup = document.querySelector('.popup__image');
-const captionPopup = document.querySelector('.popup__caption');
-
+const captionPopup = document.querySelector('.popup__caption'); 
+const popupProfileEdit = document.querySelector('.popup_type_edit')
+const popupAddNewCard = document.querySelector('.popup_type_new-card')// Модальное окно добавления карточки
+const popupTypeImage = document.querySelector('.popup_type_image');
+const popupCloseButtons = document.querySelectorAll('.popup__close')// Кнопка закрытия модалки
 
 // @todo: Вывести карточки на страницу
 
@@ -40,12 +42,12 @@ function openImage(evt) {
   imagePopup.alt = evt.target.alt
   captionPopup.textContent = evt.target.alt
 
-  openModal(openImagePopup)
+  openModal(popupTypeImage)
 }
 
 // обработчик события редактирования профиля с ПРЕзаполненными данными ранее
 
-ProfileEdit.addEventListener('click', (e) => {
+profileEdit.addEventListener('click', (e) => {
   e.preventDefault();
 
   popupNameInput.value = profileName.textContent;
@@ -56,7 +58,7 @@ ProfileEdit.addEventListener('click', (e) => {
 
 // Функция редактирования данных профиля
 
-function handleFormSubmit(evt) {
+function handleUserFormSubmit(evt) {
     evt.preventDefault(); // Эта строчка отменяет стандартную отправку формы.                                         
     profileName.textContent = nameInput.value
     profileDescription.textContent = jobInput.value 
@@ -66,7 +68,7 @@ function handleFormSubmit(evt) {
 
 // Прикрепляем обработчик к форме:
 // он будет следить за событием “submit” - «отправка»
-formEditProfile.addEventListener('submit', handleFormSubmit)
+formEditProfile.addEventListener('submit', handleUserFormSubmit)
 
 // обработчик события добавления на страницу новой карточки
 
@@ -97,3 +99,14 @@ function createNewCard(event) {
 
 formCreateNewImageCard.addEventListener('submit', createNewCard);
 
+  // Функция закрытия по клику на крестик
+  
+popupCloseButtons.forEach(item => {
+    
+  const popup = item.closest('.popup');
+    
+  item.addEventListener('click', () => {
+  closeModal(popup);
+  })
+})
+  

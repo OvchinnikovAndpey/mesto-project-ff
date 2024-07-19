@@ -1,12 +1,8 @@
-export {createCard, deleteCard, handleLike, placesList}
+export {createCard, deleteCard, handleLike }
 
 // @todo: Темплейт карточки
 
 const cardsTemplate = document.querySelector('#card-template').content
-
-// @todo: DOM узлы
-
-const placesList = document.querySelector('.places__list');
 
 // @todo: Функция создания карточки
 
