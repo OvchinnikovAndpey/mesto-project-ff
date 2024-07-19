@@ -1,18 +1,16 @@
 import '../pages/index.css';
 import { initialCards } from './cards';
 import { createCard, deleteCard, handleLike, placesList } from '../components/card';
-import { openModal, closeEsc, closeOverlay, closeModal } from '../components/modal';
+import { openModal, closeModal, popupProfileEdit, popupAddNewCard, openImagePopup } from '../components/modal';
 
 
 
 const ProfileEdit = document.querySelector('.profile__edit-button');// кнопка редактирования профиля
-const popupProfileEdit = document.querySelector('.popup_type_edit');// модальное окно редактирования профиля
 const profileName = document.querySelector('.profile__title');// ПРЕзаполненное имя
 const popupNameInput = document.querySelector('.popup__input_type_name');
 const profileDescription = document.querySelector('.profile__description');// ПРЕзаполненное описание
 const popupAboutInput = document.querySelector('.popup__input_type_description');
 const addCard = document.querySelector('.profile__add-button');// Кнопка открытия модального окна добавления карточки
-const popupAddNewCard = document.querySelector('.popup_type_new-card')// Модальное окно добавления карточки
 // Находим поля формы в DOM для формы редактирования описания профиля
 const formEditProfile = document.forms['edit-profile'];
 const nameInput = document.querySelector('.popup__input_type_name')
@@ -21,6 +19,11 @@ const jobInput = document.querySelector('.popup__input_type_description')
 const formCreateNewImageCard = document.forms['new-place']
 const cardNameInput = document.querySelector('.popup__input_type_card-name')
 const cardLinkPlase = document.querySelector('.popup__input_type_url')
+// переменные функции вызова открытия картинки карточки
+
+const imagePopup = document.querySelector('.popup__image');
+const captionPopup = document.querySelector('.popup__caption');
+
 
 // @todo: Вывести карточки на страницу
 
@@ -30,9 +33,6 @@ initialCards.forEach(function(element) {
 })
 
 // Функция вызова открытия картинки карточки
-const openImagePopup = document.querySelector('.popup_type_image');
-const imagePopup = document.querySelector('.popup__image');
-const captionPopup = document.querySelector('.popup__caption');
 
 function openImage(evt) {
   
@@ -96,5 +96,4 @@ function createNewCard(event) {
 }
 
 formCreateNewImageCard.addEventListener('submit', createNewCard);
-
 
