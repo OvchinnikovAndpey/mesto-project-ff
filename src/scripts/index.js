@@ -265,10 +265,12 @@ clearValidation(popupProfileEdit, validationConfig);
 
 
 const getInitialCards = () => {
-  return fetch('https://nomoreparties.co/v1/pwff-cohort-1/cards'), {
-      authorization: '6529151b-a651-4db4-ad9e-59715b964e63',
-      'Content-Type': 'application/js'
+  return fetch('https://nomoreparties.co/v1/pwff-cohort-1/cards', {
+      headers: {
+        authorization: '6529151b-a651-4db4-ad9e-59715b964e63',
+        'Content-Type': 'application/js'
       }
+      })
     .then((res) => {
       if(res.ok) {
       return res.json()
@@ -278,10 +280,12 @@ const getInitialCards = () => {
 }
 
 const getUserInfo = () => {
-  return fetch('https://nomoreparties.co/v1/pwff-cohort-1/users/me'), {
-      authorization: '6529151b-a651-4db4-ad9e-59715b964e63',
+  return fetch('https://nomoreparties.co/v1/pwff-cohort-1/users/me', {
+      headers: {
+      authorization: '6529151b-a651-4db4-ad9e-59715b964e63',  
       'Content-Type': 'application/js'
-    }
+      }
+    })
     .then((res) => {
       if(res.ok) {
         return res.json()
