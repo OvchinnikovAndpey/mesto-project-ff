@@ -2,6 +2,7 @@ import '../pages/index.css';
 import { initialCards } from './cards';
 import { createCard, deleteCard, handleLike } from '../components/card';
 import { openModal, closeModal } from '../components/modal';
+// import { get } from 'core-js/core/dict';
 
 
 const placesList = document.querySelector('.places__list');
@@ -26,13 +27,14 @@ const popupProfileEdit = document.querySelector('.popup_type_edit')
 const popupAddNewCard = document.querySelector('.popup_type_new-card')// Модальное окно добавления карточки
 const popupTypeImage = document.querySelector('.popup_type_image');
 const popupCloseButtons = document.querySelectorAll('.popup__close')// Кнопка закрытия модалки
+const profileImage = document.querySelector('.profile__image')
 
 // @todo: Вывести карточки на страницу
 
-initialCards.forEach(function(element) {
-  const cardElement = createCard(element, deleteCard, handleLike, openImage) 
-  placesList.append(cardElement)
-})
+// initialCards.forEach(function(element) {
+//   const cardElement = createCard(element, deleteCard, handleLike, openImage) 
+//   placesList.append(cardElement)
+// })
 
 // Функция вызова открытия картинки карточки
 
@@ -119,88 +121,6 @@ popupCloseButtons.forEach(item => {
 })
   
 // Валидация форм
-
-// const validationConfig = {
-//   formSelector: '.popup__form',
-//   inputSelector: '.popup__input',
-//   submitButtonSelector: '.popup__button',
-//   inactiveButtonClass: 'popup__button_disabled',
-//   inputErrorClass: 'popup__input_type_error',
-//   errorClass: 'popup__error_visible',
-// }; 
-
-// const formSelector = document.querySelectorAll('.popup__form')
-// const submitButtonSelector = formSelector.querySelectorAll('.popup__button')
-// const inactiveButtonClass = formSelector.querySelectorAll('popup__button_disabled')
-// const inputErrorClass = formSelector.querySelectorAll('popup__input_type_error')
-// const errorClass = formSelector.querySelectorAll('popup__error_visible')
-// const formError = formSelector.querySelector(`.${inputElement.id}-error`);
-
-// const showInputError = (formElement, inputElement, errorMessage) => {
-//   const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
-//   inputElement.classList.add('form__input_type_error');
-//   errorElement.textContent = errorMessage;
-//   errorElement.classList.add('form__input-error_active');
-// };
-
-// const hideInputError = (formElement, inputElement) => {
-//   const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
-//   inputElement.classList.remove('popup__input_type_error');
-//   errorElement.classList.remove('popup__input-error_active');
-//   errorElement.textContent = '';
-// };
-
-// const checkInputValidity = (formElement, inputElement) => {
-//   if (!inputElement.validity.valid) {
-//     showInputError(formElement, inputElement, inputElement.validationMessage);
-//   } else {
-//     hideInputError(formElement, inputElement);
-//   }
-// };
-
-
-// const setEventListeners = (formElement) => {
-//   const inputList = Array.from(formElement.querySelectorAll('.popup__input'));
-//   const buttonElement = formElement.querySelector('popup__button')
-//   toggleButtonState(inputList, buttonElement)
-//   inputList.forEach((inputElement) => {
-//     inputElement.addEventListener('input', function () {
-//       checkInputValidity(formElement, inputElement);
-//       toggleButtonState(inputList, buttonElement)
-//     });
-//   });
-// };
-
-// const hasInvalidInput = (inputList) => {
-//   return inputList.some((inputElement) => {
-//     return !inputElement.validity.valid;
-//   })
-// }; 
-
-// const toggleButtonState = (inputList, buttonElement) => {
-//   if (hasInvalidInput(inputList)){
-//     buttonElement.disabled = true;
-//     buttonElement.classList.add('.popup__button_disabled');
-//     } else {
-//   buttonElement.disabled = false;
-//   buttonElement.classList.remove('.popup__button_disabled');}
-// }
-
-// const enableValidation = () => {
-//   const formList = Array.from(document.querySelectorAll('popup__form'));
-//   formList.forEach((formElement) => {
-//     formElement.addEventListener('submit', function (evt) {
-//       evt.preventDefault();
-//     });
-//     const fieldsetList = Array.from(formElement.querySelectorAll('.form__set'))
-//     fieldsetList.forEach((fieldSet) => {
-//     setEventListeners(fieldSet);
-//     })
-//   });
-// };
-
-// enableValidation();
-
 
 const validationConfig = {
   formSelector: ".popup__form",
@@ -296,3 +216,101 @@ export const clearValidation = (formElement, validationConfig) => {
 
 enableValidation(validationConfig);
 clearValidation(popupProfileEdit, validationConfig);
+
+// АПИ
+
+// const config = {
+//   cardsUrl: "https://nomoreparties.co/v1/pwff-cohort-1/cards",
+//   userDataUrl: "https://nomoreparties.co/v1/pwff-cohort-1/users/me",
+//   headers: {
+//     authorization: "6529151b-a651-4db4-ad9e-59715b964e63",
+//     "Content-Type": "application/json",
+//   },
+// };
+
+
+
+  // .then(res => res.json())
+  // .then((result) => {
+  //   console.log(result);
+  // }); 
+
+// fetch('https://nomoreparties.co/v1/pwff-cohort-1/users/me', {
+// headers: {
+//   authorization: '6529151b-a651-4db4-ad9e-59715b964e63'
+// }
+// })
+// .then(res => res.json())
+// .then((result) => {
+//   console.log(result);
+// }); 
+
+// fetch('https://nomoreparties.co/v1/pwff-cohort-1/cards', {
+// headers: {
+//   authorization: '6529151b-a651-4db4-ad9e-59715b964e63'
+// }
+// })
+// .then(res => res.json())
+// .then((result) => {
+//   console.log(result);
+// }); 
+
+// function handleResponse(response) {
+//   if (response.ok) {
+//     return response.json()
+//   }
+
+//   throw new Error('Данные не получены')
+// } 
+
+
+const getInitialCards = () => {
+  return fetch('https://nomoreparties.co/v1/pwff-cohort-1/cards'), {
+      authorization: '6529151b-a651-4db4-ad9e-59715b964e63',
+      'Content-Type': 'application/js'
+      }
+    .then((res) => {
+      if(res.ok) {
+      return res.json()
+      }    
+      return Promise.reject(`Ошибка: ${res.status}`)
+    })
+}
+
+const getUserInfo = () => {
+  return fetch('https://nomoreparties.co/v1/pwff-cohort-1/users/me'), {
+      authorization: '6529151b-a651-4db4-ad9e-59715b964e63',
+      'Content-Type': 'application/js'
+    }
+    .then((res) => {
+      if(res.ok) {
+        return res.json()
+    }
+    return Promise.reject(`Ошибка: ${res.status}`)
+  })
+}
+
+function getAddCardsAndInfo() {
+  return Promise.all([getUserInfo(), getInitialCards()])
+  .then(([userData, cardsData]) => {
+    console.log({userData, cardsData})
+  
+    profileName.textContent = userData.name
+    profileDescription.textContent = userData.about
+    // для аватарки
+    profileImage.style.backgroundImage = `url(${userData.avatar})`;
+    // для аватарки
+    const userId = userData._id
+
+    cardsData.forEach((element) => {
+      const newCard = createCard(element, deleteCard, handleLike, openImage)
+      placesList.append(newCard)
+    })
+  })
+  .catch((err) => {
+    console.log(err)
+  })
+}
+
+getAddCardsAndInfo()
+
