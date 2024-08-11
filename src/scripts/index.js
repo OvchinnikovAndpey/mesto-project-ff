@@ -239,7 +239,7 @@ getAddCardsAndInfo()
 
 
 const profileEditFunction = (inputName, inputDescription) => {
-  fetch(`https://nomoreparties.co/v1/pwff-cohort-1/users/me`, {
+  return fetch(`https://nomoreparties.co/v1/pwff-cohort-1/users/me`, {
     headers: {
       authorization: '6529151b-a651-4db4-ad9e-59715b964e63',
       'Content-Type': 'application/json',
