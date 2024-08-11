@@ -1,4 +1,4 @@
-export {createCard, deleteCard handleLike }
+export {createCard, deleteCard, handleLike }
 import { deleteCardFromServer } from "../scripts/index";
 
 // @todo: Темплейт карточки
@@ -46,7 +46,7 @@ function deleteCard(event) {
   deleteCardFromServer(cardId);
 } 
 
-  функция вызова лайка карточки
+  // функция вызова лайка карточки
 
 function handleLike(evt) {
     evt.target.classList.toggle('card__like-button_is-active');
