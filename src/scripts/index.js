@@ -1,7 +1,8 @@
 import '../pages/index.css';
-import { initialCards } from './cards';
 import { createCard, deleteCard, handleLike } from '../components/card';
 import { openModal, closeModal } from '../components/modal';
+
+// import { initialCards } from './cards'; - Прездзагружаемые карточки
 // import { get } from 'core-js/core/dict';
 
 
@@ -29,7 +30,7 @@ const popupTypeImage = document.querySelector('.popup_type_image');
 const popupCloseButtons = document.querySelectorAll('.popup__close')// Кнопка закрытия модалки
 const profileImage = document.querySelector('.profile__image')
 
-// @todo: Вывести карточки на страницу
+// @todo: Вывести карточки на страницу (не с сервера)
 
 // initialCards.forEach(function(element) {
 //   const cardElement = createCard(element, deleteCard, handleLike, openImage) 
@@ -59,19 +60,20 @@ clearValidation(popupProfileEdit, validationConfig)
   popupAboutInput.value = profileDescription.textContent;
 
   openModal(popupProfileEdit);
-});
+});Я
 
 // Функция редактирования данных профиля
 
 function handleUserFormSubmit(evt) {
-    evt.preventDefault(); // Эта строчка отменяет стандартную отправку формы.                                         
-    // новое св-во
-    clearValidation(popupProfileEdit, validationConfig); 
+    evt.preventDefault();                                        
     
     profileName.textContent = nameInput.value
     profileDescription.textContent = jobInput.value 
-
-    closeModal(popupProfileEdit);
+    
+    profileEditFunction(profileName.textContent, profileDescription.textContent)
+      .then(() => {
+        closeModal(popupProfileEdit);
+      })
 }
 
 // Прикрепляем обработчик к форме:
@@ -268,7 +270,7 @@ const getInitialCards = () => {
   return fetch('https://nomoreparties.co/v1/pwff-cohort-1/cards', {
       headers: {
         authorization: '6529151b-a651-4db4-ad9e-59715b964e63',
-        'Content-Type': 'application/js'
+        'Content-Type': 'application/json'
       }
       })
     .then((res) => {
@@ -283,7 +285,7 @@ const getUserInfo = () => {
   return fetch('https://nomoreparties.co/v1/pwff-cohort-1/users/me', {
       headers: {
       authorization: '6529151b-a651-4db4-ad9e-59715b964e63',  
-      'Content-Type': 'application/js'
+      'Content-Type': 'application/json'
       }
     })
     .then((res) => {
@@ -314,7 +316,29 @@ function getAddCardsAndInfo() {
   .catch((err) => {
     console.log(err)
   })
+
 }
 
 getAddCardsAndInfo()
+
+const profileEditFunction = (inputName, inputDescription) => {
+  fetch(`https://nomoreparties.co/v1/pwff-cohort-1/users/me`, {
+    headers: {
+      authorization: '6529151b-a651-4db4-ad9e-59715b964e63',
+      'Content-Type': 'application/json',
+    },
+    method: 'PATCH', 
+    body: JSON.stringify({
+      name: `${inputName}`,
+      about: `${inputDescription}`,
+    })
+  })
+  .then((res) => {
+    if (res.ok) {
+      return res.json()
+    } else {
+      Promise.reject(`Ошибка: ${res.status}`);
+    }
+  })
+}
 
