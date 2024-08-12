@@ -1,4 +1,4 @@
-export {createCard, handleLike }
+export {createCard, handleLike}
 import { deleteCardFromServer} from "../scripts/index";
 
 // @todo: Темплейт карточки
@@ -8,7 +8,7 @@ const cardsTemplate = document.querySelector('#card-template').content
 // @todo: Функция создания карточки
 
 function createCard(element, likeClick, openImage) {
-    const cardElement = cardsTemplate.cloneNode(true);
+    const cardElement = cardsTemplate.querySelector('.card').cloneNode(true);
     const cardDelete = cardElement.querySelector('.card__delete-button');
     const cardImage = cardElement.querySelector('.card__image');
     const cardName = cardElement.querySelector('.card__title');
@@ -27,11 +27,12 @@ function createCard(element, likeClick, openImage) {
       })
     });
   
-    cardImage.addEventListener('click', openImage)
+    cardImage.addEventListener('click', openImage);
   
     return cardElement;
   
   }
+
   
 //Функция удаления карточки
 

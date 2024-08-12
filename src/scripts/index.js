@@ -6,7 +6,6 @@ import { enableValidation, validationConfig, clearValidation } from '../componen
 // import { initialCards } from './cards'; - Прездзагружаемые карточки
 // import { get } from 'core-js/core/dict';
 
-
 const placesList = document.querySelector('.places__list');
 const profileEdit = document.querySelector('.profile__edit-button');// кнопка редактирования профиля
 const profileName = document.querySelector('.profile__title');// ПРЕзаполненное имя
@@ -79,7 +78,7 @@ function handleUserFormSubmit(evt) {
 }
 
 // Прикрепляем обработчик к форме:
-// он будет следить за событием “submit” - «отправка»
+
 formEditProfile.addEventListener('submit', handleUserFormSubmit)
 
 // обработчик события добавления на страницу новой карточки
@@ -102,15 +101,14 @@ function createNewCard(event) {
     name: cardNameInput.value,
     link: cardLinkPlase.value,
   };
-
-  const newCard = createCard(newCardElement, deleteCard, handleLike, openImage) 
-
-  placesList.prepend(newCard);
-
-  closeModal(popupAddNewCard);
-  event.target.reset(); 
-
-  addCardToPage(newCardElement);
+  
+  addCardToPage(newCardElement)
+  .then((cardData) => {
+    const newCard = createCard(cardData, deleteCard, handleLike, openImage) 
+    placesList.prepend(newCard);
+    closeModal(popupAddNewCard);
+    event.target.reset(); 
+  })
 
 }
 
@@ -136,51 +134,6 @@ function deleteCard(cardElement, cardId) {
 
 
 // АПИ
-
-// const config = {
-//   cardsUrl: "https://nomoreparties.co/v1/pwff-cohort-1/cards",
-//   userDataUrl: "https://nomoreparties.co/v1/pwff-cohort-1/users/me",
-//   headers: {
-//     authorization: "6529151b-a651-4db4-ad9e-59715b964e63",
-//     "Content-Type": "application/json",
-//   },
-// };
-
-
-
-  // .then(res => res.json())
-  // .then((result) => {
-  //   console.log(result);
-  // }); 
-
-// fetch('https://nomoreparties.co/v1/pwff-cohort-1/users/me', {
-// headers: {
-//   authorization: '6529151b-a651-4db4-ad9e-59715b964e63'
-// }
-// })
-// .then(res => res.json())
-// .then((result) => {
-//   console.log(result);
-// }); 
-
-// fetch('https://nomoreparties.co/v1/pwff-cohort-1/cards', {
-// headers: {
-//   authorization: '6529151b-a651-4db4-ad9e-59715b964e63'
-// }
-// })
-// .then(res => res.json())
-// .then((result) => {
-//   console.log(result);
-// }); 
-
-// function handleResponse(response) {
-//   if (response.ok) {
-//     return response.json()
-//   }
-
-//   throw new Error('Данные не получены')
-// } 
-
 
 // Получение данных с сверера о карточках
 
@@ -229,7 +182,7 @@ function getAddCardsAndInfo() {
     profileImage.style.backgroundImage = `url(${userData.avatar})`;
     // для аватарки
     const userId = userData._id
-
+    // console.log(userId)
     cardsData.forEach((element) => {
       const newCard = createCard(element, deleteCard, handleLike, openImage)
       placesList.append(newCard)
