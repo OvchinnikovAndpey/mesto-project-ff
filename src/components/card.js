@@ -1,5 +1,5 @@
-export {createCard, deleteCard, handleLike }
-import { deleteCardFromServer } from "../scripts/index";
+export {createCard, handleLike }
+import { deleteCardFromServer} from "../scripts/index";
 
 // @todo: Темплейт карточки
 
@@ -7,7 +7,7 @@ const cardsTemplate = document.querySelector('#card-template').content
 
 // @todo: Функция создания карточки
 
-function createCard(element, deleteCardFromServer, likeClick, openImage) {
+function createCard(element, likeClick, openImage) {
     const cardElement = cardsTemplate.cloneNode(true);
     const cardDelete = cardElement.querySelector('.card__delete-button');
     const cardImage = cardElement.querySelector('.card__image');
@@ -21,9 +21,9 @@ function createCard(element, deleteCardFromServer, likeClick, openImage) {
     cardLikeBtn.addEventListener('click', likeClick);
   
     cardDelete.addEventListener('click', () => {
-      deleteCardFromServer(cardElement._id)
+      deleteCardFromServer(element._id)
       .then(() => {
-        cardElement.remove();
+        element.remove();
       })
     });
   
@@ -35,16 +35,16 @@ function createCard(element, deleteCardFromServer, likeClick, openImage) {
   
 //Функция удаления карточки
 
-function deleteCard(event) {
-    const card = event.target.closest('.card')
-    card.remove()
+// function deleteCard(event) {
+//     const card = event.target.closest('.card')
+//     card.remove()
 
- // Получаем идентификатор удаляемой карточки
-  const cardId = card.dataset.id;
+//  // Получаем идентификатор удаляемой карточки
+//   const cardId = card.dataset.id;
 
-  // Вызываем функцию удаления карточки с сервера
-  deleteCardFromServer(cardId);
-} 
+//   // Вызываем функцию удаления карточки с сервера
+//   deleteCardFromServer(cardId);
+// } 
 
   // функция вызова лайка карточки
 

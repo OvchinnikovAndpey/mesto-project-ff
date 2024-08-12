@@ -1,5 +1,5 @@
 import '../pages/index.css';
-import { createCard, deleteCard, handleLike } from '../components/card';
+import { createCard, handleLike } from '../components/card';
 import { openModal, closeModal } from '../components/modal';
 import { enableValidation, validationConfig, clearValidation } from '../components/validation.js'
 
@@ -127,6 +127,14 @@ popupCloseButtons.forEach(item => {
   })
 })
   
+function deleteCard(cardElement, cardId) {
+  deleteCardFromServer(cardId)
+  .then(() => {
+    cardElement.remove();
+  })
+} 
+
+
 // АПИ
 
 // const config = {
