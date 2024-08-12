@@ -13,7 +13,7 @@ function createCard(element, likeClick, openImage) {
     const cardImage = cardElement.querySelector('.card__image');
     const cardName = cardElement.querySelector('.card__title');
     const cardLikeBtn = cardElement.querySelector('.card__like-button');
-    console.log(element)
+    // console.log(element)
     cardImage.src = element.link;
     cardImage.alt = `Изображение ${element.name}`;
     cardName.textContent = element.name;
@@ -23,7 +23,7 @@ function createCard(element, likeClick, openImage) {
     cardDelete.addEventListener('click', () => {
       deleteCardFromServer(element._id)
       .then(() => {
-        element.remove();
+        cardElement.remove();
       })
     });
   
