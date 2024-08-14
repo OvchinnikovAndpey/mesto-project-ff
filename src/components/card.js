@@ -47,7 +47,6 @@ function createCard(element, deleteCard, likeClick, openImage, userId) {
     cardImage.addEventListener('click', openImage);
   
     return cardElement;
-  
   }
 
   // функция вызова лайка карточки
