@@ -46,6 +46,18 @@ function createCard(element, deleteCard, likeClick, openImage, userId) {
 
     cardImage.addEventListener('click', openImage);
   
+if (userId != userId) {
+  cardDelete.remove();
+} else { 
+  cardDelete.addEventListener('click', () => {
+    deleteCardFromServer(cardsTemplate, cardId)
+    .then(() => {
+          cardElement.remove();
+        })
+  });
+
+}
+
     return cardElement;
   }
 
