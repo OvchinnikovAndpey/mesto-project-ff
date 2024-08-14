@@ -17,35 +17,44 @@ function createCard(element, likeClick, openImage) {
     cardImage.src = element.link;
     cardImage.alt = `Изображение ${element.name}`;
     cardName.textContent = element.name;
-  
+
+    const cardId = element._id;
+    console.log(cardId)
+    const userId = element.owner._id
+    console.log(element.owner._id)
+    
+    cardImage.addEventListener('click', openImage);
+
     cardLikeBtn.addEventListener('click', likeClick);
   
-    cardDelete.addEventListener('click', () => {
-      deleteCardFromServer(element._id)
-      .then(() => {
-        cardElement.remove();
-      })
-    });
+  //   if (cardId === userId) {
+  //     cardDelete.style.display = 'block';
+  // } else {
+  //     cardDelete.style.display = 'none';
+  // }
+
+    // cardDelete.addEventListener('click', () => {
+    //   deleteCardFromServer(element._id)
+    //   .then(() => {
+    //     cardElement.remove();
+    //   })
+    // });
   
-    cardImage.addEventListener('click', openImage);
-  
+if (userId != userId) {
+  cardDelete.remove();
+} else { 
+  cardDelete.addEventListener('click', () => {
+    deleteCardFromServer(cardsTemplate, cardId)
+    .then(() => {
+          cardElement.remove();
+        })
+  });
+
+}
+
     return cardElement;
   
-  }
-
-  
-//Функция удаления карточки
-
-// function deleteCard(event) {
-//     const card = event.target.closest('.card')
-//     card.remove()
-
-//  // Получаем идентификатор удаляемой карточки
-//   const cardId = card.dataset.id;
-
-//   // Вызываем функцию удаления карточки с сервера
-//   deleteCardFromServer(cardId);
-// } 
+  } 
 
   // функция вызова лайка карточки
 

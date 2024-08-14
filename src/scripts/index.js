@@ -104,7 +104,7 @@ function createNewCard(event) {
   
   addCardToPage(newCardElement)
   .then((cardData) => {
-    const newCard = createCard(cardData, deleteCard, handleLike, openImage) 
+    const newCard = createCard(cardData, deleteCard, openImage, handleLike) 
     placesList.prepend(newCard);
     closeModal(popupAddNewCard);
     event.target.reset(); 
@@ -184,7 +184,7 @@ function getAddCardsAndInfo() {
     const userId = userData._id
     // console.log(userId)
     cardsData.forEach((element) => {
-      const newCard = createCard(element, deleteCard, handleLike, openImage)
+      const newCard = createCard(element, deleteCard, openImage, handleLike) 
       placesList.append(newCard)
     })
   })
