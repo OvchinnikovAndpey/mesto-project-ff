@@ -2,7 +2,7 @@ import '../pages/index.css';
 import { createCard, handleLike } from '../components/card';
 import { openModal, closeModal } from '../components/modal';
 import { enableValidation, validationConfig, clearValidation } from '../components/validation.js'
-
+import {addCardToPage, profileEditFunction, getInitialCards, getUserInfo} from '../components/api.js'
 // import { initialCards } from './cards'; - Прездзагружаемые карточки
 // import { get } from 'core-js/core/dict';
 
@@ -39,7 +39,9 @@ enableValidation(validationConfig);
 //   placesList.append(cardElement)
 // })
 
+
 // Функция вызова открытия картинки карточки
+
 
 function openImage(evt) {
   
@@ -104,7 +106,7 @@ function createNewCard(event) {
   
   addCardToPage(newCardElement)
   .then((cardData) => {
-    const newCard = createCard(cardData, deleteCard, handleLike, openImage) 
+    const newCard = createCard(cardData, deleteCard, handleLike, openImage, userId) 
     placesList.prepend(newCard);
     closeModal(popupAddNewCard);
     event.target.reset(); 
@@ -132,59 +134,23 @@ function deleteCard(cardElement, cardId) {
   })
 } 
 
-
-// АПИ
-
-// Получение данных с сверера о карточках
-
-const getInitialCards = () => {
-  return fetch('https://nomoreparties.co/v1/pwff-cohort-1/cards', {
-      headers: {
-        authorization: '6529151b-a651-4db4-ad9e-59715b964e63',
-        'Content-Type': 'application/json'
-      }
-      })
-    .then((res) => {
-      if(res.ok) {
-      return res.json()
-      }    
-      return Promise.reject(`Ошибка: ${res.status}`)
-    })
-}
-
-// Получение данных с сверера о пользователе
-
-const getUserInfo = () => {
-  return fetch('https://nomoreparties.co/v1/pwff-cohort-1/users/me', {
-      headers: {
-      authorization: '6529151b-a651-4db4-ad9e-59715b964e63',  
-      'Content-Type': 'application/json'
-      }
-    })
-    .then((res) => {
-      if(res.ok) {
-        return res.json()
-    }
-    return Promise.reject(`Ошибка: ${res.status}`)
-  })
-}
-
 // Функция получения (отображения) карточек на странице, загруженных с сервера
+let userId
 
 function getAddCardsAndInfo() {
   return Promise.all([getUserInfo(), getInitialCards()])
   .then(([userData, cardsData]) => {
-    console.log({userData, cardsData})
+    // console.log({userData, cardsData})
   
     profileName.textContent = userData.name
     profileDescription.textContent = userData.about
     // для аватарки
     profileImage.style.backgroundImage = `url(${userData.avatar})`;
-    // для аватарки
-    const userId = userData._id
+    
+    userId = userData._id
     // console.log(userId)
     cardsData.forEach((element) => {
-      const newCard = createCard(element, deleteCard, handleLike, openImage)
+      const newCard = createCard(element, deleteCard, handleLike, openImage, userId)
       placesList.append(newCard)
     })
   })
@@ -194,84 +160,9 @@ function getAddCardsAndInfo() {
 
 }
 
+
 // Вызов функции вывода карточек
 
 getAddCardsAndInfo()
 
 
-const profileEditFunction = (inputName, inputDescription) => {
-  return fetch(`https://nomoreparties.co/v1/pwff-cohort-1/users/me`, {
-    headers: {
-      authorization: '6529151b-a651-4db4-ad9e-59715b964e63',
-      'Content-Type': 'application/json',
-    },
-    method: 'PATCH', 
-    body: JSON.stringify({
-      name: `${inputName}`,
-      about: `${inputDescription}`,
-    })
-  })
-  .then((res) => {
-    if (res.ok) {
-      return res.json()
-    } else {
-      Promise.reject(`Ошибка: ${res.status}`);
-    }
-  })
-}
-
-// Функция добавления карточки на сервер
-
-const addCardToPage = (cardData) => {
-  return fetch('https://nomoreparties.co/v1/pwff-cohort-1/cards', {
-    method: "POST",
-    body: JSON.stringify(cardData),
-    headers: {
-      authorization: '6529151b-a651-4db4-ad9e-59715b964e63',
-      'Content-Type': 'application/json'
-    }
-    })
-    .then(res => res.json())
-    .catch(err => console.log('Ошибка:', err));
-};
-
-// Функция удаления карточки с сервера
-
-export const deleteCardFromServer = (cardId) => {
-  return fetch(`https://nomoreparties.co/v1/pwff-cohort-1/cards/${cardId}`, {
-    method: 'DELETE',
-    headers: {
-      authorization: '6529151b-a651-4db4-ad9e-59715b964e63',
-    },
-  })
-    .then((res) => res.json())
-    .catch((err) => console.log('Ошибка:', err));
-};
-
-
-// function createNewCard(event) {
-//   event.preventDefault();
-
-//   const newCardElement = {
-//     name: cardNameInput.value,
-//     link: cardLinkPlase.value,
-//   };
-
-//   const newCard = createCard(newCardElement, deleteCard, handleLike, openImage) 
-
-//   placesList.prepend(newCard);
-
-//   closeModal(popupAddNewCard);
-//   event.target.reset(); 
-
-//   addCardToPage(newCardElement);
-
-//   const deleteButton = document.querySelector('.card__delete-button')
-//   deleteButton.addEventListener('click', () => {
-//     const cardId = newCard._id;
-
-//     deleteCardFromServer(cardId);
-//   });
-
-//   document.body.appendChild(deleteButton);
-// }
