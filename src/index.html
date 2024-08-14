@@ -14,7 +14,11 @@
   </header>
   <main class="content">
     <section class="profile page__section">
-      <div class="profile__image" style="background-image: url(<%=require('./images/avatar.jpg')%>);"></div>
+      <div class="profile__image" style="background-image: url('');">
+        <div class="pencil__overlay">
+          <img class="pencil__overlay-image" src="<%=require('./images/pencileditprofileavatar.svg')%>" alt="Фото аватара пользователя">
+        </div>
+      </div>
       <div class="profile__info">
         <h1 class="profile__title">Жак-Ив Кусто</h1>
         <button class="profile__edit-button" type="button"></button>
@@ -70,8 +74,8 @@
         required>
         <!-- Сообщение формы -->
         <span class="input-error card-name-error"></span>
-        <input type="url" id="card-link" name="link" class="popup__input popup__input_type_url" placeholder="Ссылка на картинку" required>
-         <!-- Сообщение формы -->
+        <input type="url" id="card-link" name="link" class="popup__input" placeholder="Ссылка на картинку" required>
+        <!-- Сообщение формы -->
         <span class="input-error card-link-error"></span>
         <button type="submit" class="button popup__button">Сохранить</button>
       </form>
@@ -84,7 +88,21 @@
       <p class="popup__caption"></p>
     </div>
   </div>
+  <!--Разметка для редактирования аватара профиля -->
+  <div class="popup popup__avatar-replace">
+    <div class="popup__content">
+      <button type="button" class="popup__close"></button>
+      <h3 class="popup__title">Обновить аватар</h3>
+      <form class="popup__form" name="avatar-replace" novalidate>
+        <input type="url" id="avatar-link" name="link" class="popup__input popup__input_type_url" placeholder="Ссылка на изображение" required>
+        <!-- Сообщение формы -->
+        <span class="input-error card-link-error"></span>
+        <button type="submit" class="button popup__button">Сохранить</button>
+      </form>
+    </div>
+  </div>
 </div>
+
 <!-- <script src="./scripts/cards.js"></script>
 <script src="./scripts/index.js" defer></script> -->
 

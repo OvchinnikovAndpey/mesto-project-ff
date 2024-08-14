@@ -22,7 +22,11 @@ const handleResponse = (res) => {
 export const getInitialCards = () => {
     return fetch('https://nomoreparties.co/v1/pwff-cohort-1/cards', {
         headers: config.headers
-    }).then(handleResponse)
+    })
+    .then(handleResponse)
+    .catch((err) => {
+        console.log(err); // выводим ошибку в консоль
+      });
 }
 
 // Получение данных с сверера о пользователе
@@ -30,7 +34,11 @@ export const getInitialCards = () => {
 export const getUserInfo = () => {
     return fetch('https://nomoreparties.co/v1/pwff-cohort-1/users/me', {
         headers: config.headers
-    }).then(handleResponse)
+    })
+    .then(handleResponse)
+    .catch((err) => {
+        console.log(err); // выводим ошибку в консоль
+      });
 }
 
 // Функция редактирования профиля
@@ -43,7 +51,11 @@ export const profileEditFunction = (inputName, inputDescription) => {
             name: `${inputName}`,
             about: `${inputDescription}`,
         })
-    }).then(handleResponse)
+    })
+    .then(handleResponse)
+    .catch((err) => {
+        console.log(err); // выводим ошибку в консоль
+      });
 }
 
 // Функция добавления карточки на сервер
@@ -53,7 +65,11 @@ return fetch('https://nomoreparties.co/v1/pwff-cohort-1/cards', {
         method: "POST",
         body: JSON.stringify(cardData),
         headers: config.headers
-    }).then(handleResponse)
+    })
+    .then(handleResponse)
+    .catch((err) => {
+        console.log(err); // выводим ошибку в консоль
+      });
 }
 
 // Функция удаления карточки с сервера
@@ -62,7 +78,11 @@ export const deleteCardFromServer = (cardId) => {
 return fetch(`https://nomoreparties.co/v1/pwff-cohort-1/cards/${cardId}`, {
         method: 'DELETE',
         headers: config.headers
-    }).then(handleResponse)
+    })
+    .then(handleResponse)
+    .catch((err) => {
+        console.log(err); // выводим ошибку в консоль
+      });
 }
 
 //Добавление лайка к карточке поста
@@ -71,14 +91,36 @@ export const addLike = (cardId) => {
     return fetch(`${config.baseUrl}/cards/likes/${cardId}`, {
         method: 'PUT',
         headers: config.headers
-    }).then(handleResponse)
+    })
+    .then(handleResponse)
+    .catch((err) => {
+        console.log(err); // выводим ошибку в консоль
+      });
 }
 
 //Удаление лайка  с карточки поста
 
 export const deleteLike = (cardId) => {
-return fetch(`${config.baseUrl}/cards/likes/${cardId}`, {
-    method: 'DELETE',
-    headers: config.headers
-}).then(handleResponse)
+    return fetch(`${config.baseUrl}/cards/likes/${cardId}`, {
+        method: 'DELETE',
+        headers: config.headers
+})
+.then(handleResponse)
+.catch((err) => {
+    console.log(err); // выводим ошибку в консоль
+  });
+}
+
+// Изменение аватара
+
+export const avatarEdit = (removeAvatar) => {
+    return fetch(`${config.baseUrl}/users/me/avatar`, {
+        method: 'PATCH',
+        headers: config.headers,
+        body: JSON.stringify({
+            avatar: imglink
+        })
+    }).then(handleResponse).catch((err) => {
+        console.log(err); // выводим ошибку в консоль
+    });
 }

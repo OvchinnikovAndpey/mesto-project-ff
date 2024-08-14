@@ -2,7 +2,7 @@ import '../pages/index.css';
 import { createCard, handleLike } from '../components/card';
 import { openModal, closeModal } from '../components/modal';
 import { enableValidation, validationConfig, clearValidation } from '../components/validation.js'
-import {addCardToPage, profileEditFunction, getInitialCards, getUserInfo} from '../components/api.js'
+import {addCardToPage, profileEditFunction, getInitialCards, getUserInfo, avatarEdit} from '../components/api.js'
 // import { initialCards } from './cards'; - Прездзагружаемые карточки
 // import { get } from 'core-js/core/dict';
 
@@ -29,6 +29,18 @@ const popupAddNewCard = document.querySelector('.popup_type_new-card')// Мод�
 const popupTypeImage = document.querySelector('.popup_type_image');
 const popupCloseButtons = document.querySelectorAll('.popup__close')// Кнопка закрытия модалки
 const profileImage = document.querySelector('.profile__image')
+
+const popupAvatar = document.querySelector('.popup__avatar-replace');
+const avatarBtn = document.querySelector('.profile__image');
+const avatarForm = popupAvatar.querySelector('.popup_form');
+// const avatarInput = avatarForm.querySelector('.popup__input_type_url');
+// const avatarSaveBtn = avatarForm.querySelector('.popup__button');
+
+avatarBtn.addEventListener('click', () => {
+  openModal(popupAvatar)
+  // avatarInput.value = ''
+  clearValidation(popupAvatar, validationConfig)
+})
 
 enableValidation(validationConfig);
 
@@ -140,7 +152,7 @@ let userId
 function getAddCardsAndInfo() {
   return Promise.all([getUserInfo(), getInitialCards()])
   .then(([userData, cardsData]) => {
-    // console.log({userData, cardsData})
+    console.log({userData, cardsData})
   
     profileName.textContent = userData.name
     profileDescription.textContent = userData.about
