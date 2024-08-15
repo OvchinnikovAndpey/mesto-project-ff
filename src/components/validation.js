@@ -36,6 +36,9 @@ const isValid = (formElement, inputElement, validationConfig) => {
 };
 const showInputError = (formElement, inputElement, validationConfig) => {
     const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
+    console.log(formElement);
+    
+    console.log(errorElement)
     if (errorElement) {
         console.log(`Adding error class to ${inputElement.id}`);
         inputElement.classList.add(validationConfig.inputErrorClass);

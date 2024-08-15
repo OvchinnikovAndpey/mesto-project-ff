@@ -38,8 +38,6 @@ const avatarSaveBtn = avatarForm.querySelector('.popup__button');
 
 enableValidation(validationConfig);
 
-
-
 avatarBtn.addEventListener('click', (e) => {
   avatarInput.value = '';
   clearValidation(popupAvatar, validationConfig);
