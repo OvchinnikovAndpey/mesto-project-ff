@@ -62,7 +62,7 @@ export const profileEditFunction = (inputName, inputDescription) => {
 
 export const addCardToPage = (cardData) => {
 return fetch(`${config.baseUrl}/cards`, {
-        method: "POST",
+        method: 'POST',
         body: JSON.stringify(cardData),
         headers: config.headers
     })

@@ -1,5 +1,3 @@
-// Валидация форм
-
 export const validationConfig = {
     formSelector: ".popup__form",
     inputSelector: ".popup__input",
@@ -8,14 +6,12 @@ export const validationConfig = {
     inputErrorClass: "popup__input_type_error",
     errorClass: "popup__error_visible",
 };
-
 export const enableValidation = (validationConfig) => {
     const formList = Array.from(document.querySelectorAll(validationConfig.formSelector));
     formList.forEach((formElement) => {
         setEventListeners(formElement, validationConfig);
     });
 };
-
 const setEventListeners = (formElement, validationConfig) => {
     const inputList = Array.from(formElement.querySelectorAll(validationConfig.inputSelector));
     const buttonElement = formElement.querySelector(validationConfig.submitButtonSelector);
@@ -26,7 +22,6 @@ const setEventListeners = (formElement, validationConfig) => {
         });
     });
 };
-
 const isValid = (formElement, inputElement, validationConfig) => {
     if (inputElement.validity.patternMismatch) {
         inputElement.setCustomValidity(inputElement.dataset.errorMessage);
@@ -39,7 +34,6 @@ const isValid = (formElement, inputElement, validationConfig) => {
         hideInputError(formElement, inputElement, validationConfig);
     }
 };
-
 const showInputError = (formElement, inputElement, validationConfig) => {
     const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
     if (errorElement) {
@@ -51,7 +45,6 @@ const showInputError = (formElement, inputElement, validationConfig) => {
         console.log('Element not found!');
     }
 };
-
 const hideInputError = (formElement, inputElement, validationConfig) => {
     const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
     if (errorElement) {
@@ -61,7 +54,6 @@ const hideInputError = (formElement, inputElement, validationConfig) => {
         errorElement.textContent = "";
     }
 };
-
 const toggleButtonState = (inputList, buttonElement, validationConfig) => {
     const hasInvalidInput = inputList.some((inputElement) => !inputElement.validity.valid);
     if (hasInvalidInput) {
@@ -72,7 +64,6 @@ const toggleButtonState = (inputList, buttonElement, validationConfig) => {
         buttonElement.disabled = false;
     }
 };
-
 export const clearValidation = (formElement, validationConfig) => {
     const inputList = Array.from(formElement.querySelectorAll(validationConfig.inputSelector));
     const buttonElement = formElement.querySelector(validationConfig.submitButtonSelector);

@@ -33,7 +33,7 @@ const profileImage = document.querySelector('.profile__image')
 const popupAvatar = document.querySelector('.popup__avatar-replace');
 const avatarBtn = document.querySelector('.profile__image');
 const avatarForm = popupAvatar.querySelector('.popup__form');
-const avatarInput = document.querySelector('.popup__input_type_url');
+const avatarInput = document.querySelector('.popup__input_type_url_avatar');
 const avatarSaveBtn = avatarForm.querySelector('.popup__button');
 
 enableValidation(validationConfig);
@@ -111,6 +111,8 @@ addCard.addEventListener('click', (e) => {
 
 })
 
+
+
 // Функция добавления новой карточки
 
 function createNewCard(event) {
@@ -121,6 +123,8 @@ function createNewCard(event) {
     link: cardLinkPlase.value,
   };
   
+
+
   addCardToPage(newCardElement)
   .then((cardData) => {
     const newCard = createCard(cardData, deleteCard, handleLike, openImage, userId) 
