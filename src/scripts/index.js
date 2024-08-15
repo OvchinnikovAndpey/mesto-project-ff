@@ -32,28 +32,33 @@ const profileImage = document.querySelector('.profile__image')
 
 const popupAvatar = document.querySelector('.popup__avatar-replace');
 const avatarBtn = document.querySelector('.profile__image');
-const avatarForm = popupAvatar.querySelector('.popup_form');
-// const avatarInput = avatarForm.querySelector('.popup__input_type_url');
-// const avatarSaveBtn = avatarForm.querySelector('.popup__button');
-
-avatarBtn.addEventListener('click', () => {
-  openModal(popupAvatar)
-  // avatarInput.value = ''
-  clearValidation(popupAvatar, validationConfig)
-})
+const avatarForm = popupAvatar.querySelector('.popup__form');
+const avatarInput = document.querySelector('.popup__input_type_url');
+const avatarSaveBtn = avatarForm.querySelector('.popup__button');
 
 enableValidation(validationConfig);
 
-// @todo: Вывести карточки на страницу (не с сервера)
 
-// initialCards.forEach(function(element) {
-//   const cardElement = createCard(element, deleteCard, handleLike, openImage) 
-//   placesList.append(cardElement)
-// })
 
+avatarBtn.addEventListener('click', (e) => {
+  avatarInput.value = '';
+  clearValidation(popupAvatar, validationConfig);
+  openModal(popupAvatar);
+})
+
+avatarForm.addEventListener('submit', () => {
+  avatarEdit(avatarInput.value)
+  .then((response) => {
+    console.log(response)
+    avatarBtn.style.backgroundImage = `url(${response.avatar})`;
+    closeModal(popupAvatar);
+  })
+  .catch((err) => {
+    console.log(err)
+  })
+})
 
 // Функция вызова открытия картинки карточки
-
 
 function openImage(evt) {
   
@@ -156,7 +161,6 @@ function getAddCardsAndInfo() {
   
     profileName.textContent = userData.name
     profileDescription.textContent = userData.about
-    // для аватарки
     profileImage.style.backgroundImage = `url(${userData.avatar})`;
     
     userId = userData._id
@@ -171,7 +175,6 @@ function getAddCardsAndInfo() {
   })
 
 }
-
 
 // Вызов функции вывода карточек
 

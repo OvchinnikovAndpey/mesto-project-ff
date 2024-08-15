@@ -15,6 +15,7 @@ function createCard(element, deleteCard, likeClick, openImage, userId) {
     const cardLikeBtn = cardElement.querySelector('.card__like-button');
     const likeOnCard = cardElement.querySelector('.card__like-button-count')
     const cardId = element._id;
+    // console.log(cardId)
     // const userId = element.owner._id
 
     cardImage.src = element.link;
@@ -59,7 +60,7 @@ if (userId != userId) {
 }
 
     return cardElement;
-  }
+}
 
   // функция вызова лайка карточки
 

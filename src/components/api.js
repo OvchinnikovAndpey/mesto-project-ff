@@ -61,7 +61,7 @@ export const profileEditFunction = (inputName, inputDescription) => {
 // Функция добавления карточки на сервер
 
 export const addCardToPage = (cardData) => {
-return fetch('https://nomoreparties.co/v1/pwff-cohort-1/cards', {
+return fetch(`${config.baseUrl}/cards`, {
         method: "POST",
         body: JSON.stringify(cardData),
         headers: config.headers
@@ -118,9 +118,11 @@ export const avatarEdit = (removeAvatar) => {
         method: 'PATCH',
         headers: config.headers,
         body: JSON.stringify({
-            avatar: imglink
+            avatar: removeAvatar
         })
-    }).then(handleResponse).catch((err) => {
+    })
+    .then(handleResponse)
+    .catch((err) => {
         console.log(err); // выводим ошибку в консоль
     });
 }

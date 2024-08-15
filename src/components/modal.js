@@ -11,7 +11,7 @@ const openModal = (popup) => {
   
   // Функция закрытия кнопкой ESCAPE
   
- const closeEsc = (evt) => {
+const closeEsc = (evt) => {
     if (evt.key === 'Escape') {
       const openedModal = document.querySelector('.popup_is-opened');
       closeModal(openedModal);
