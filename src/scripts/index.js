@@ -44,7 +44,8 @@ avatarBtn.addEventListener('click', (e) => {
   openModal(popupAvatar);
 })
 
-avatarForm.addEventListener('submit', () => {
+avatarForm.addEventListener('submit', (e) => {
+  e.preventDefault(e)
   avatarEdit(avatarInput.value)
   .then((response) => {
     console.log(response)
