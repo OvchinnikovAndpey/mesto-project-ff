@@ -15,10 +15,12 @@ const popupAboutInput = document.querySelector('.popup__input_type_description')
 const addCard = document.querySelector('.profile__add-button');// Кнопка открытия модального окна добавления карточки
 // Находим поля формы в DOM для формы редактирования описания профиля
 const formEditProfile = document.forms['edit-profile'];
+const editProfileSaveBtn = formEditProfile.querySelector('.popup__button')
 const nameInput = document.querySelector('.popup__input_type_name')
 const jobInput = document.querySelector('.popup__input_type_description') 
 // Переменные DOM добавления новой карточки на страницу
 const formCreateNewImageCard = document.forms['new-place']
+const addCardSaveBtn = formCreateNewImageCard.querySelector('.popup__button')
 const cardNameInput = document.querySelector('.popup__input_type_card-name')
 const cardLinkPlase = document.querySelector('.popup__input_type_url')
 // переменные функции вызова открытия картинки карточки
@@ -38,14 +40,18 @@ const avatarSaveBtn = avatarForm.querySelector('.popup__button');
 
 enableValidation(validationConfig);
 
+// Обработчик события нажатия на аватар
 avatarBtn.addEventListener('click', (e) => {
   avatarInput.value = '';
   clearValidation(popupAvatar, validationConfig);
   openModal(popupAvatar);
 })
 
+// Отправка изменений аватара
+
 avatarForm.addEventListener('submit', (e) => {
   e.preventDefault(e)
+  btnSaveText(avatarSaveBtn, true)
   avatarEdit(avatarInput.value)
   .then((response) => {
     console.log(response)
@@ -54,6 +60,10 @@ avatarForm.addEventListener('submit', (e) => {
   })
   .catch((err) => {
     console.log(err)
+  })
+
+  .finally(() => {
+    btnSaveText(avatarSaveBtn, false)
   })
 })
 
@@ -86,12 +96,22 @@ profileEdit.addEventListener('click', (e) => {
 function handleUserFormSubmit(evt) {
     evt.preventDefault();                                        
     
+    btnSaveText(editProfileSaveBtn, true)
+
     profileName.textContent = nameInput.value
     profileDescription.textContent = jobInput.value 
     
     profileEditFunction(profileName.textContent, profileDescription.textContent)
       .then(() => {
-        closeModal(popupProfileEdit);
+        closeModal(popupProfileEdit)
+      })
+
+      .catch((err) => {
+        console.log(err)
+      })
+    
+      .finally(() => {
+        btnSaveText(editProfileSaveBtn, false)
       })
 }
 
@@ -107,7 +127,6 @@ addCard.addEventListener('click', (e) => {
   openModal(popupAddNewCard)
 
   clearValidation(popupAddNewCard, validationConfig);
-
 })
 
 
@@ -117,6 +136,8 @@ addCard.addEventListener('click', (e) => {
 function createNewCard(event) {
   event.preventDefault();
 
+  btnSaveText(addCardSaveBtn, true)
+  
   const newCardElement = {
     name: cardNameInput.value,
     link: cardLinkPlase.value,
@@ -127,16 +148,26 @@ function createNewCard(event) {
   addCardToPage(newCardElement)
   .then((cardData) => {
     const newCard = createCard(cardData, deleteCard, handleLike, openImage, userId) 
+
     placesList.prepend(newCard);
     closeModal(popupAddNewCard);
     event.target.reset(); 
+    
+  })
+  
+  .catch((err) => {
+    console.log(err)
+  })
+
+  .finally(() => {
+    btnSaveText(addCardSaveBtn, false)
   })
 
 }
 
 formCreateNewImageCard.addEventListener('submit', createNewCard);
 
-  // Функция закрытия по клику на крестик
+// Функция закрытия по клику на крестик
   
 popupCloseButtons.forEach(item => {
     
@@ -183,4 +214,10 @@ function getAddCardsAndInfo() {
 
 getAddCardsAndInfo()
 
+// Добавление статуса сохранения
+
+function btnSaveText (buttonElement, status) {
+  
+  buttonElement.textContent = status ? 'Сохранение...' : 'Сохранить'
+}
 

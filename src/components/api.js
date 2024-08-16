@@ -20,7 +20,7 @@ const handleResponse = (res) => {
 // Получение данных с сверера о карточках
 
 export const getInitialCards = () => {
-    return fetch('https://nomoreparties.co/v1/pwff-cohort-1/cards', {
+    return fetch(`${config.baseUrl}/cards`, {
         headers: config.headers
     })
     .then(handleResponse)
@@ -32,7 +32,7 @@ export const getInitialCards = () => {
 // Получение данных с сверера о пользователе
 
 export const getUserInfo = () => {
-    return fetch('https://nomoreparties.co/v1/pwff-cohort-1/users/me', {
+    return fetch(`${config.baseUrl}/users/me`, {
         headers: config.headers
     })
     .then(handleResponse)
@@ -44,7 +44,7 @@ export const getUserInfo = () => {
 // Функция редактирования профиля
 
 export const profileEditFunction = (inputName, inputDescription) => {
-    return fetch(`https://nomoreparties.co/v1/pwff-cohort-1/users/me`, {
+    return fetch(`${config.baseUrl}/users/me`, {
         headers: config.headers,
         method: 'PATCH',
         body: JSON.stringify({
@@ -75,7 +75,7 @@ return fetch(`${config.baseUrl}/cards`, {
 // Функция удаления карточки с сервера
 
 export const deleteCardFromServer = (cardId) => {
-return fetch(`https://nomoreparties.co/v1/pwff-cohort-1/cards/${cardId}`, {
+return fetch(`${config.baseUrl}/cards/likes/${cardId}`, {
         method: 'DELETE',
         headers: config.headers
     })
