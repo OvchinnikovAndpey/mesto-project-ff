@@ -75,7 +75,7 @@ return fetch(`${config.baseUrl}/cards`, {
 // Функция удаления карточки с сервера
 
 export const deleteCardFromServer = (cardId) => {
-return fetch(`${config.baseUrl}/cards/likes/${cardId}`, {
+return fetch(`${config.baseUrl}/cards/${cardId}`, {
         method: 'DELETE',
         headers: config.headers
     })
