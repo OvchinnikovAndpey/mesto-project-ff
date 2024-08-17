@@ -50,7 +50,7 @@ avatarBtn.addEventListener('click', (e) => {
 
 avatarForm.addEventListener('submit', (e) => {
   e.preventDefault(e)
-  btnSaveText(avatarSaveBtn, true)
+  saveTextBtn(avatarSaveBtn, true)
   avatarEdit(avatarInput.value)
   .then((response) => {
     console.log(response)
@@ -62,7 +62,7 @@ avatarForm.addEventListener('submit', (e) => {
   })
 
   .finally(() => {
-    btnSaveText(avatarSaveBtn, false)
+    saveTextBtn(avatarSaveBtn, false)
   })
 })
 
@@ -95,22 +95,21 @@ profileEdit.addEventListener('click', (e) => {
 function handleUserFormSubmit(evt) {
     evt.preventDefault();                                        
     
-    btnSaveText(editProfileSaveBtn, true)
-
-    profileName.textContent = nameInput.value
-    profileDescription.textContent = jobInput.value 
+    saveTextBtn(editProfileSaveBtn, true)
     
     profileEditFunction(profileName.textContent, profileDescription.textContent)
       .then(() => {
+        profileName.textContent = nameInput.value
+        profileDescription.textContent = jobInput.value 
         closeModal(popupProfileEdit)
       })
 
       .catch((err) => {
         console.log(err)
       })
-    
+      
       .finally(() => {
-        btnSaveText(editProfileSaveBtn, false)
+        saveTextBtn(editProfileSaveBtn, false)
       })
 }
 
@@ -135,7 +134,7 @@ addCard.addEventListener('click', (e) => {
 function createNewCard(event) {
   event.preventDefault();
 
-  btnSaveText(addCardSaveBtn, true)
+  saveTextBtn(addCardSaveBtn, true)
   
   const newCardElement = {
     name: cardNameInput.value,
@@ -159,7 +158,7 @@ function createNewCard(event) {
   })
 
   .finally(() => {
-    btnSaveText(addCardSaveBtn, false)
+    saveTextBtn(addCardSaveBtn, false)
   })
 
 }
@@ -215,7 +214,7 @@ getAddCardsAndInfo()
 
 // Добавление статуса сохранения
 
-function btnSaveText (buttonElement, status) {
+function saveTextBtn (buttonElement, status) {
   
   buttonElement.textContent = status ? 'Сохранение...' : 'Сохранить'
 }
