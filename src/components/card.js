@@ -56,7 +56,10 @@ function createCard(element, deleteCard, likeClick, openImage, userId) {
       deleteCardFromServer(cardsTemplate, cardId)
       .then(() => {
             cardElement.remove();
-          });
+          })
+      .catch((err) => {
+            console.log(err); // выводим ошибку в консоль
+      });
   }
 
     return cardElement;
