@@ -39,6 +39,9 @@ function createCard(element, deleteCard, likeClick, openImage, userId) {
       .then(() => {
         cardElement.remove();
       })
+      .catch((err) => {
+        console.log(err); // выводим ошибку в консоль
+    });
     });
   
     if (element.likes.some((like) => like._id == userId)) {
@@ -50,14 +53,11 @@ function createCard(element, deleteCard, likeClick, openImage, userId) {
   if (userId != userId) {
     cardDelete.remove();
   } else { 
-    cardDelete.addEventListener('click', () => {
       deleteCardFromServer(cardsTemplate, cardId)
       .then(() => {
             cardElement.remove();
-          })
-    });
-
-}
+          });
+  }
 
     return cardElement;
 }
@@ -74,12 +74,18 @@ function handleLike(evt, cardId, likeCountainer) {
       likeButton.classList.add('card__like-button_is-active')
       likeCountainer.textContent = res.likes.length
     })
+    .catch((err) => {
+      console.log(err); // выводим ошибку в консоль
+  });
   } else {
     deleteLike(cardId)
     .then((res) => {
       likeButton.classList.remove('card__like-button_is-active')
       likeCountainer.textContent = res.likes.length
     })
+    .catch((err) => {
+      console.log(err); // выводим ошибку в консоль
+  });
   }
 
 }

@@ -181,6 +181,9 @@ function deleteCard(cardElement, cardId) {
   .then(() => {
     cardElement.remove();
   })
+  .catch((err) => {
+    console.log(err); // выводим ошибку в консоль
+});
 } 
 
 // Функция получения (отображения) карточек на странице, загруженных с сервера
