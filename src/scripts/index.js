@@ -31,7 +31,6 @@ const popupAddNewCard = document.querySelector('.popup_type_new-card')// Мод�
 const popupTypeImage = document.querySelector('.popup_type_image');
 const popupCloseButtons = document.querySelectorAll('.popup__close')// Кнопка закрытия модалки
 const profileImage = document.querySelector('.profile__image')
-
 const popupAvatar = document.querySelector('.popup__avatar-replace');
 const avatarBtn = document.querySelector('.profile__image');
 const avatarForm = popupAvatar.querySelector('.popup__form');

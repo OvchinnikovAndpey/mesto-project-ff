@@ -26,7 +26,7 @@ export const getInitialCards = () => {
     .then(handleResponse)
     .catch((err) => {
         console.log(err); // выводим ошибку в консоль
-      });
+    });
 }
 
 // Получение данных с сверера о пользователе
@@ -38,7 +38,7 @@ export const getUserInfo = () => {
     .then(handleResponse)
     .catch((err) => {
         console.log(err); // выводим ошибку в консоль
-      });
+    });
 }
 
 // Функция редактирования профиля
@@ -55,7 +55,7 @@ export const profileEditFunction = (inputName, inputDescription) => {
     .then(handleResponse)
     .catch((err) => {
         console.log(err); // выводим ошибку в консоль
-      });
+    });
 }
 
 // Функция добавления карточки на сервер
@@ -69,7 +69,7 @@ return fetch(`${config.baseUrl}/cards`, {
     .then(handleResponse)
     .catch((err) => {
         console.log(err); // выводим ошибку в консоль
-      });
+    });
 }
 
 // Функция удаления карточки с сервера
@@ -82,7 +82,7 @@ return fetch(`${config.baseUrl}/cards/${cardId}`, {
     .then(handleResponse)
     .catch((err) => {
         console.log(err); // выводим ошибку в консоль
-      });
+    });
 }
 
 //Добавление лайка к карточке поста
@@ -95,7 +95,7 @@ export const addLike = (cardId) => {
     .then(handleResponse)
     .catch((err) => {
         console.log(err); // выводим ошибку в консоль
-      });
+    });
 }
 
 //Удаление лайка  с карточки поста
@@ -104,11 +104,11 @@ export const deleteLike = (cardId) => {
     return fetch(`${config.baseUrl}/cards/likes/${cardId}`, {
         method: 'DELETE',
         headers: config.headers
-})
-.then(handleResponse)
-.catch((err) => {
-    console.log(err); // выводим ошибку в консоль
-  });
+    })
+    .then(handleResponse)
+    .catch((err) => {
+        console.log(err); // выводим ошибку в консоль
+    });
 }
 
 // Изменение аватара
