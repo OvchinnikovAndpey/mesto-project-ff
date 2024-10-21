@@ -103,7 +103,6 @@ function handleUserFormSubmit(evt) {
         profileDescription.textContent = jobInput.value 
         closeModal(popupProfileEdit)
       })
-
       .catch((err) => {
         console.log(err)
       })
