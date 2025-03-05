@@ -97,7 +97,7 @@ function handleUserFormSubmit(evt) {
     
     saveTextBtn(editProfileSaveBtn, true)
     
-    profileEditFunction(profileName.textContent, profileDescription.textContent)
+    profileEditFunction(nameInput.value, jobInput.value)
       .then(() => {
         profileName.textContent = nameInput.value
         profileDescription.textContent = jobInput.value 
